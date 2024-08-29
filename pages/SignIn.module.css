@@ -18,17 +18,7 @@
   }
   
   
-  .formContainer {
-    background-color: #7D0A0A;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    margin-top: -40px;
-    margin-bottom: 30px;
-  }
+  
   
   .title {
     font-size: 24px;
@@ -59,6 +49,7 @@
     font-size: 16px;
     background-color: #EAD196;
     color: #7D0A0A;
+    font-weight: bold;
   }
   
   .input::placeholder {
@@ -77,9 +68,115 @@
     align-self: center;
     width: auto;
     margin-top: 30px;
+    font-weight: bold;
   }
   
   .signInButton:hover {
     background-color: #d3b877;
+  }
+  
+  /* Gaya umum untuk formContainer */
+.formContainer {
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin-top: -40px;
+  margin-bottom: 30px;
+}
+
+
+/* Gaya khusus untuk dark mode */
+.dark-mode .formContainer {
+  background-color: #5B0A0A; /* Gaya dark mode */
+}
+
+/* Gaya khusus untuk light mode */
+.light-mode .formContainer {
+  background-color: #7D0A0A; /* Gaya light mode */
+}
+
+.dark-mode .title {
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-family: 'Baloo 2', sans-serif;
+  color: #BDBDBD;
+  font-weight: bold;
+}
+
+.dark-mode .input {
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  background-color: #D7B66A;
+  color: #5B0A0A;
+  font-weight: bold;
+}
+
+.dark-mode .signInButton {
+  padding: 10px 20px;
+  background-color: #D7B66A;
+  color: #5B0A0A;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  align-self: center;
+  width: auto;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.dark-mode .signInButton:hover {
+    background-color: #7b5703;
+  }
+
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Pastikan inputGroup memiliki lebar 100% */
+  }
+  
+  .input {
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    background-color: #EAD196;
+    color: #7D0A0A;
+    font-weight: bold;
+    width: 100%; /* Tetapkan lebar input menjadi 100% */
+  }
+  
+  .passwordContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Lebar passwordContainer sama dengan inputGroup */
+  }
+  
+  .toggleButton {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7D0A0A;
+    font-size: 18px;
+  }
+  
+  .dark-mode .input {
+    background-color: #D7B66A;
+    color: #5B0A0A;
+  }
+  
+  .dark-mode .passwordContainer .input {
+    background-color: #D7B66A;
+    color: #5B0A0A;
   }
   

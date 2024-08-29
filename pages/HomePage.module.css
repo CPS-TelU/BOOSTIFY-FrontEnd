@@ -1,73 +1,206 @@
+/* Gaya umum untuk container */
 .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Gaya umum untuk konten utama */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Gaya untuk konten teks */
+.textContent {
+  max-width: 50%;
+  padding-right: 20px;
+}
+
+/* Gaya untuk judul */
+.title {
+  font-size: 36px;
+  color: #4C4C4C;
+  margin-bottom: 20px;
+  font-weight: bold;
+  padding-left: 30px;
+  width: 70%;
+}
+
+/* Gaya untuk deskripsi */
+.description {
+  font-size: 18px;
+  color: #4C4C4C;
+  line-height: 1.5;
+  text-align: justify;
+  padding-left: 30px;
+  width: 70%;
+}
+
+/* Gaya untuk konten gambar */
+.imageContent {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding-left: 70px;
+}
+
+/* Gaya untuk gambar utama */
+.mainImage {
+  height: 200px;
+}
+
+/* Gaya untuk bagian kehadiran */
+.attendanceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  width: 100%;
+}
+
+/* Gaya untuk judul kehadiran */
+.attendanceTitle {
+  font-size: 32px;
+  color: #3F3C38;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+/* Gaya untuk tombol kehadiran */
+.attendanceButton {
+  padding: 15px 30px;
+  background-color: #7D0A0A;
+  color: #EAD196;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Gaya untuk mode gelap */
+.dark-mode .title {
+  color: #BDBDBD;
+}
+
+.dark-mode .description {
+  color: #BDBDBD;
+}
+
+.dark-mode .attendanceButton {
+  background-color: #5B0A0A;
+  color: #D7B66A;
+}
+.dark-mode .attendanceTitle {
+  font-size: 32px;
+  color: #BDBDBD;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+/* Gaya untuk mode terang */
+.light-mode .title {
+  color: #3F3C38;
+}
+
+.light-mode .description {
+  color: #3F3C38;
+}
+
+.light-mode .attendanceButton {
+  background-color: #7D0A0A;
+  color: #EAD196;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
   .mainContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 60px 40px;
-    width: 100%;
-    max-width: 1200px;
+    flex-direction: column; /* Stack text and image vertically */
+    /* Center content */
+    margin: 20px 10px; 
   }
-  
+
   .textContent {
-    max-width: 50%;
-    padding-right: 20px;
+    width: 90%; /* Ensure some margin from the edges */
+   /* Center align text */
+    margin-bottom: 20px; /* Space below text section */
+    padding: 0 10px; /* Add padding to avoid text touching screen edges */
   }
-  
+
   .title {
-    font-size: 36px;
-    color: #4C4C4C;
-    margin-bottom: 20px;
-    font-weight: bold;
+    font-size: 28px; /* Adjust font size for mobile */
+    margin-bottom: 15px; /* Space below title */
+    padding: 0 0px; /* Padding for better readability */
+    width: 100%;
   }
-  
+
   .description {
-    font-size: 18px;
-    color: #4C4C4C;
-    line-height: 1.5;
-    text-align: justify;
-  }
-  
-  .imageContent {
-    width: 50%;
-    display: flex;
-    justify-content: center;
+    font-size: 16px; /* Adjust font size for mobile */
+    line-height: 1.4; /* Adjust line height for readability */
+    width: 100%; /* Lebar elemen description untuk mobile */
+    max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+    padding-left: 0px; /* Padding kiri untuk ruang tambahan */
+    padding-right: 0px; /* Padding kanan untuk ruang tambahan */
+    box-sizing: border-box; /* Memastikan padding termasuk dalam lebar */
   }
   
   .mainImage {
-    height: 15rem;
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 20px; /* Space below image */
+    margin-left: -20px; /* Geser gambar lebih ke kiri */
+    transform: translateX(-18%); /* Alternatif: gunakan transform untuk geser gambar */
   }
-  
-  .attendanceSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* padding: 60px 0;
-    width: 100%;
-    background-color: #ffffff; */
-  }
-  
-  .attendanceTitle {
-    font-size: 32px;
-    color: #4C4C4C;
-    margin-bottom: 40px;
-    font-weight: bold;
-  }
-  
+
   .attendanceButton {
-    padding: 15px 30px;
-    background-color: #7D0A0A;
-    color: #EAD196;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    transform: translateX(5%);
+    width: 90%; /* Lebar penuh pada tampilan mobile */
+    display: block; /* Pastikan tombol tampil sebagai blok untuk margin auto */
   }
+  .dark-mode .attendanceButton {
+    transform: translateX(5%);
+    width: 90%; /* Lebar penuh pada tampilan mobile */
+    display: block; /* Pastikan tombol tampil sebagai blok untuk margin auto */
+  }
+  .dark-mode .mainContent {
+    flex-direction: column; /* Stack text and image vertically */
+    align-items: center; /* Center content */
+    margin: 20px 10px; /* Adjust margin for smaller screens */
+  }
+
+  .dark-mode .textContent {
+    width: 90%; /* Ensure some margin from the edges */
+   /* Center align text */
+    margin-bottom: 20px; /* Space below text section */
+    padding: 0 10px; /* Add padding to avoid text touching screen edges */
+  }
+
+  .dark-mode .title {
+    font-size: 28px; /* Adjust font size for mobile */
+    margin-bottom: 15px; /* Space below title */
+    padding: 0 0px; /* Padding for better readability */
+    width: 100%;
+  }
+
+  .dark-mode .description {
+    font-size: 16px; /* Adjust font size for mobile */
+    line-height: 1.4; /* Adjust line height for readability */
+    width: 100%; /* Lebar elemen description untuk mobile */
+    max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+    padding-left: 0px; /* Padding kiri untuk ruang tambahan */
+    padding-right: 0px; /* Padding kanan untuk ruang tambahan */
+    box-sizing: border-box; /* Memastikan padding termasuk dalam lebar */
+  }
+  
+  .dark-mode .imageSection {
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 20px; /* Space below image */
+  }
+}

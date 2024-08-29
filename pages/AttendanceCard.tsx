@@ -4,9 +4,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import HomeNav from '../components/HomeNav';
 import Footer from '../components/footer';
 import styles from './AttendanceCard.module.css';
+import { useTheme } from '../pages/ThemeContext';
+
 
 const AttendanceCard = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { isDarkMode } = useTheme();
+ 
 
   const attendanceData = [
     { code: 'CIT', name: 'Citra Kusumadewi Sribawono', time: '15:30' },
@@ -29,7 +33,7 @@ const AttendanceCard = () => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <HomeNav />
       <main className={styles.main}>
         <h2 className={styles.h2}>ATTENDANCE</h2>

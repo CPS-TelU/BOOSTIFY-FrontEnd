@@ -1,19 +1,20 @@
 import React from 'react';
 import styles from './SignOut.module.css';
+import { useTheme } from '../pages/ThemeContext';
 
-const ConfirmPage = () => {
+const ConfirmPage: React.FC = () => {
+  const { isDarkMode } = useTheme();
+
   const handleGoBack = () => {
-    // Logika untuk kembali ke halaman sebelumnya
     console.log('Go Back');
   };
 
   const handleConfirm = () => {
-    // Logika untuk konfirmasi (misalnya sign out)
     console.log('Confirmed');
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <h1 className={styles.title}>Are You Sure?</h1>
       <div className={styles.buttons}>
         <div className={`${styles.buttonContainer} ${styles.goBackButtonContainer}`}>
@@ -26,7 +27,7 @@ const ConfirmPage = () => {
         <div className={`${styles.buttonContainer} ${styles.confirmButtonContainer}`}>
           <a href="/">
             <button className={`${styles.button} ${styles.confirmButton}`} onClick={handleConfirm}>
-            Yes
+              Yes
             </button>
           </a>
         </div>

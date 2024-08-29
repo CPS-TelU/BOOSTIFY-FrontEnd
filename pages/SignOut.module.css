@@ -1,3 +1,4 @@
+/* Gaya untuk container */
 .container {
   display: flex;
   flex-direction: column;
@@ -31,7 +32,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EAD196; /* Warna container */
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -67,4 +67,46 @@
 .goBackButton:hover,
 .confirmButton:hover {
   opacity: 0.9;
+}
+
+/* Gaya untuk mode gelap */
+
+
+.dark-mode .title {
+  color: #D7B66A;
+}
+
+.dark-mode .goBackButtonContainer {
+  background-color: #EDD7A3;
+}
+
+.dark-mode .confirmButtonContainer {
+  background-color: #D7B66A;
+}
+
+.dark-mode.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 300px;
+  background-color: #5B0A0A;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dark-mode.button {
+  padding: 15px 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  color: #5B0A0A;
 }

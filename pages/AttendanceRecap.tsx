@@ -4,11 +4,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './AttendanceRecap.module.css';
 import HomeNav from '../components/HomeNav';
 import Footer from '../components/footer';
+import { useTheme } from '../pages/ThemeContext';
 
 const AttendanceRecap = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+
+  const { isDarkMode } = useTheme();
 
   const toggleFilter = () => {
     setFilterOpen(!filterOpen);
@@ -44,8 +48,9 @@ const AttendanceRecap = () => {
     { code: 'CIT', name: 'Citra Kusumadewi Sribawono', points: 50, rank: 5 },
   ];
 
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <HomeNav />
       <main className={styles.main}>
         <h2 className={styles.heading}>ATTENDANCE RECAP</h2>

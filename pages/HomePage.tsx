@@ -2,10 +2,14 @@ import React from 'react';
 import styles from './HomePage.module.css';
 import Footer from '../components/footer';
 import HomeNav from '../components/HomeNav';
+import { useTheme } from '../pages/ThemeContext';
+
 
 const HomePage: React.FC = () => {
+  const { isDarkMode } = useTheme();
+ 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <HomeNav />
 
       <main className={styles.mainContent}>
@@ -26,10 +30,10 @@ const HomePage: React.FC = () => {
       <section className={styles.attendanceSection}>
         <h2 className={styles.attendanceTitle}>ATTENDANCE</h2>
         <a href="/AttendanceCard">
-        <button className={styles.attendanceButton}>LIVE REPORT</button>
+          <button className={styles.attendanceButton}>LIVE REPORT</button>
         </a>
         <a href="/AttendanceRecap">
-        <button className={styles.attendanceButton}>RECAP</button>
+          <button className={styles.attendanceButton}>RECAP</button>
         </a>
       </section>
       <Footer />

@@ -1,6 +1,43 @@
+/* Gaya umum untuk container */
 .container {
     max-width: 1280px;
     margin: 0 auto;
+}
+
+/* Gaya untuk mode gelap */
+.dark-mode .avatar {
+    background-color: #3F3C38;
+
+}
+.dark-mode .name {
+    font-size: 24px;
+    color: #BDBDBD;
+    text-align: center;
+    font-weight: bold;
+}
+.dark-mode .attendanceHistory h2 {
+    color: #D7B66A;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: left;
+}
+
+.dark-mode .historyItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #BDBDBD;
+    font-size: 18px;
+    font-weight: bold;
+    color : #BDBDBD;
+}
+
+
+/* Gaya untuk mode terang */
+.light-mode .avatar {
+    background-color: #F3EDC8;
 }
 
 .header {
@@ -22,12 +59,12 @@
 
 .nav a {
     text-decoration: none;
-    color: #900;
+    color: #7D0A0A;
     font-weight: bold;
 }
 
 .signOut {
-    color: #900;
+    color: #7D0A0A;
     font-weight: bold;
 }
 
@@ -60,41 +97,27 @@
 
 .name {
     font-size: 24px;
-    color: #555;
+    color: #3F3C38;
     text-align: center;
+    font-weight: bold;
 }
 
 .attendanceHistory h2 {
-    color: #900;
+    color: #7D0A0A;
     margin-top: 100px;
     margin-bottom: 80px;
     font-weight: bold;
     font-size: 30px;
-    text-align: center;
+    text-align: left;
 }
 
 .historyItem {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #3F3C38;
     font-size: 18px;
+    font-weight: bold;
+    color: #3F3C38;
 }
 
-.footer {
-    padding: 20px;
-    background-color: #900;
-    color: #fff;
-}
-
-.footerNav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 10px;
-}
-
-.footerNav a {
-    text-decoration: none;
-    color: #fff;
-}

@@ -61,11 +61,12 @@
   color: #EAD196;
   padding: 12px 24px;
   border-radius: 8px;
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: semibold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 32px; /* Add margin-top here to control space above the button */
   transform: translateX(30%);
+  height: auto;
 }
 
 .imageSection {
@@ -83,16 +84,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  margin-top: 80px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   border-top: 1px solid #e5e7eb;
   background-color: #7D0A0A;
 }
 
 .footerText {
   color: #EAD196;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   text-align: center;
 }
 
@@ -100,7 +101,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .footerLink {
@@ -108,7 +109,7 @@
 }
 
 .footerIcon {
-  height: 1.25rem;
+  height: 20px;
 }
 
 
@@ -123,11 +124,11 @@
 }
 
 .imageSection {
-  flex: 1;
+  display: flex;
 }
 
 .smileImage {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
 }
 
@@ -144,17 +145,24 @@
 
 
 .title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #515151;
-}
-  
-.description {
-    font-size: 1.125rem;
-    color: #515151;
-    margin-top: 24px;
+  font-size: 36px;
+  color: #4C4C4C;
+  margin-bottom: 20px;
+  font-weight: bold;
+  padding-left: 30px;
+  width: 200%;
+  height:auto;
 }
 
+/* Gaya untuk deskripsi */
+.description {
+  font-size: 18px;
+  color: #4C4C4C;
+  line-height: 1.5;
+  text-align: justify;
+  padding-left: 30px;
+  width: 70%;
+}
 
 .dark-mode {
   background-color: #0D0D0D; /* Warna background untuk dark mode */
@@ -162,22 +170,11 @@
 }
 
 .dark-mode .title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #BDBDBD; /* Warna title untuk dark mode */
-  transform: translateX(10%);
-  width: 50%;
-  text-align: left;
-  margin-bottom: 40px;
+  color: #BDBDBD;
 }
 
 .dark-mode .description {
-  color: #d3d3d3; /* Warna description untuk dark mode */
-  width: 40%;
-  margin-top: 24px;
-  text-align: left;
-  transform: translateX(12%);
-  text-align: justify;
+  color: #BDBDBD;
 }
 
 
@@ -192,44 +189,86 @@
   flex: 1;
 }
 
-.dark-mode .smileImage {
-  max-width: 300%;
-  height: auto;
-  transform: translateX(-100%);
 
-}
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column; /* Stack text and image vertically */
+    align-items: center; /* Center content */
+    margin: 20px 10px; /* Adjust margin for smaller screens */
+  }
 
-.light-mode {
-  background-color: #ffffff; /* Warna background untuk light mode */
-  color: #3F3C38; /* Warna teks default untuk light mode */
-}
+  .textSection {
+    width: 90%; /* Ensure some margin from the edges */
+   /* Center align text */
+    margin-bottom: 20px; /* Space below text section */
+    padding: 0 10px; /* Add padding to avoid text touching screen edges */
+  }
 
-.light-mode .title {
-  color: #333333; /* Warna title untuk light mode */
-  width: 50%;
-  text-align: left;
-  margin-bottom: 40px;
-  transform: translateX(10%);
-}
+  .title {
+    font-size: 28px; /* Adjust font size for mobile */
+    margin-bottom: 15px; /* Space below title */
+    padding: 0 10px; /* Padding for better readability */
+    width: 100%;
+  }
 
-.light-mode .description {
-  color: #3F3C38; /* Warna description untuk light mode */
-  width: 40%;
-  margin-top: 24px;
-  text-align: left;
-  transform: translateX(12%);
-  text-align: justify;
-}
-
-
-.light-mode .imageSection {
-  flex: 1;
-}
-
-.light-mode .smileImage {
-  max-width: 300%;
-  height: auto;
-  transform: translateX(-100%); /* Geser gambar ke kiri sebesar 20% */
+  .description {
+    font-size: 16px; /* Adjust font size for mobile */
+    line-height: 1.4; /* Adjust line height for readability */
+    width: 100%; /* Lebar elemen description untuk mobile */
+    max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+    padding-left: 10px; /* Padding kiri untuk ruang tambahan */
+    padding-right: 0px; /* Padding kanan untuk ruang tambahan */
+    box-sizing: border-box; /* Memastikan padding termasuk dalam lebar */
+  }
   
-}
+  .imageSection {
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 20px; /* Space below image */
+  }
 
+  .attendanceButton {
+    transform: translateX(5%);
+    width: 90%; /* Lebar penuh pada tampilan mobile */
+    display: block; /* Pastikan tombol tampil sebagai blok untuk margin auto */
+  }
+  .dark-mode .attendanceButton {
+    transform: translateX(5%);
+    width: 90%; /* Lebar penuh pada tampilan mobile */
+    display: block; /* Pastikan tombol tampil sebagai blok untuk margin auto */
+  }
+  .dark-mode .mainContent {
+    flex-direction: column; /* Stack text and image vertically */
+    align-items: center; /* Center content */
+    margin: 20px 10px; /* Adjust margin for smaller screens */
+  }
+
+  .dark-mode.textSection {
+    width: 90%; /* Ensure some margin from the edges */
+   /* Center align text */
+    margin-bottom: 20px; /* Space below text section */
+    padding: 0 10px; /* Add padding to avoid text touching screen edges */
+  }
+
+  .dark-mode .title {
+    font-size: 28px; /* Adjust font size for mobile */
+    margin-bottom: 15px; /* Space below title */
+    padding: 0 10px; /* Padding for better readability */
+    width: 100%;
+  }
+
+  .dark-mode .description {
+    font-size: 16px; /* Adjust font size for mobile */
+    line-height: 1.4; /* Adjust line height for readability */
+    width: 100%; /* Lebar elemen description untuk mobile */
+    max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+    padding-left: 10px; /* Padding kiri untuk ruang tambahan */
+    padding-right: 0px; /* Padding kanan untuk ruang tambahan */
+    box-sizing: border-box; /* Memastikan padding termasuk dalam lebar */
+  }
+  
+  .dark-mode .imageSection {
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 20px; /* Space below image */
+  }
+}

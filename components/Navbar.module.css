@@ -1,90 +1,4 @@
-/* Dark mode styling */
-/* body.dark-mode {
-  background-color: #1a1a1a;
-  color: #f3f3f3;
-}
-
-body.dark-mode .navbarContainer {
-  background-color: #333;
-}
-
-body.dark-mode .navLink {
-  color: #f3f3f3;
-}
-
-body.dark-mode .profileButton {
-  background-color: #555;
-  color: #f3f3f3;
-} */
-
-/* Navbar.module.css */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  margin-top: 16px;
-  height: 80px;
-  padding-left: 0;
-  padding-right: 0;
-  color: var(--text-color);
-}
-
-.logoContainer {
-  flex: 1;
-  padding-left: 30px;
-}
-
-.logo {
-  height: 150px;
-  width: auto;
-}
-
-.navbarContainer {
-  display: flex;
-  align-items: center;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  gap: 16px; /* Space between navbar items */
-}
-
-.signIn {
-  color: #7D0A0A;
-  font-weight: bold;
-  margin-right: 16px;
-}
-
-.navLinks {
-  display: flex;
-  gap: 28px; /* Consistent space between links */
-  margin-left: 0; /* Removed extra margin */
-  align-items: center; /* Vertically align the links */
-}
-
-.navLink {
-  color: #7D0A0A;
-  font-weight: medium;
-  text-decoration: none;
-  margin-right: 0; /* Reset margin to be consistent */
-}
-
-.navLink:hover {
-  color: #7D0A0A;
-}
-
-/* .profileButton {
-  
- 
-  border: none;
-  padding: 15px 15px;
-  border-radius: 50%;
-  font-weight: bold;
-} */
-
-/* Mode toggle icon styling */
+/* Dark mode toggle icon */
 .modeToggle img {
   width: 28px; /* Adjust the size as needed */
   height: 28px;
@@ -95,6 +9,71 @@ body.dark-mode .profileButton {
   transform: rotate(20deg); /* Adds a slight rotation on hover */
 }
 
+/* Existing CSS */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px; /* 1rem to 16px */
+  padding-bottom: 16px; /* 1rem to 16px */
+  margin-top: 16px; /* 1rem to 16px */
+  height: 80px; /* 5rem to 80px */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.logoContainer {
+  flex: 1;
+  padding-left: 8px; /* 0.5rem to 8px */
+}
+
+.logo {
+  height: 168px; /* 10.5rem to 168px */
+  margin-left: 16px; /* 1rem to 16px */
+}
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  padding-left: 8px; /* 0.5rem to 8px */
+  padding-right: 8px; /* 0.5rem to 8px */
+  padding-top: 8px; /* 0.5rem to 8px */
+  padding-bottom: 8px; /* 0.5rem to 8px */
+  gap: 16px; /* 1rem to 16px */
+}
+
+.signOut {
+  font-weight: bold; /* Make "Sign Out" bold */
+}
+
+.navLinks {
+  display: flex;
+  gap: 24px; /* 1.5rem to 24px */
+  margin-left: 0;
+  align-items: center;
+}
+
+.navLink {
+  color: #7D0A0A;
+  font-weight: medium;
+  text-decoration: none;
+  margin-right: 0;
+}
+
+.navLink:hover {
+  color: #7D0A0A;
+}
+
+.profileButton {
+  background-color: #EAD196;
+  color: #7D0A0A;
+  border: none;
+  padding: 15px 15px; /* 1.5rem to 24px */
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 /* Light Mode Styles */
 .light-mode {
   background-color: #FFFFFF; /* Background untuk light mode */
@@ -103,7 +82,6 @@ body.dark-mode .profileButton {
 
 .light-mode .navLink {
   color: #7D0A0A; /* Warna link untuk light mode */
-  
 }
 
 .light-mode .profileButton {
@@ -121,6 +99,75 @@ body.dark-mode .profileButton {
   color: #D7B66A; /* Warna link untuk dark mode */
 }
 
-/* .dark-mode .profileButton {
-  background-color: #D7B66A; 
-} */
+.dark-mode .profileButton {
+  background-color: #D7B66A;
+  color: #5B0A0A;
+}
+
+/* CSS Umum */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Hamburger Menu (Layar Kecil) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  gap: 4px;
+}
+
+.hamburgerLine {
+  width: 25px;
+  height: 3px;
+  background-color: #BDBDBD;
+}
+
+/* Dropdown Menu */
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Tampilkan dropdown di layar kecil */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Tampilkan ikon hamburger */
+  }
+  .navLinks {
+  display: none;
+  position: absolute;
+  top: 90px; /* Adjust based on your header height */
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  flex-direction: column;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 4px;
+  align-items: center;
+  }
+
+  .showMenu {
+    display: flex; /* Tampilkan menu saat di-klik */
+    display: flex;
+    gap: 24px; /* 1.5rem to 24px */
+    margin-left: 0;
+    align-items: center;
+  }
+}
