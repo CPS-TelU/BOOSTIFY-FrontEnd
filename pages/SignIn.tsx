@@ -35,6 +35,7 @@ const SignIn: React.FC = () => {
     }
 
     try {
+      console.log('Sending request with:', { assistantCode, password });
       const response = await fetch('https://boostify-back-end.vercel.app/api/auth/login', {
         method: 'POST',
         headers: {
@@ -47,11 +48,13 @@ const SignIn: React.FC = () => {
       });
 
       const data = await response.json();
-      console.log('API Response:', data);
+      console.log('Received response:', data);
 
       if (response.ok) {
         localStorage.setItem('authToken', data.token);
-        router.push('/HomePage');
+        setTimeout(() => {
+          router.push('/HomePage');
+        }, 1000); // Delay 1 second before redirect
       } else {
         setError(data.message || 'Login failed');
       }

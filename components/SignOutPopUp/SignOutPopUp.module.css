@@ -1,0 +1,106 @@
+/* SignOutPopUp.module.css */
+
+/* Container */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup {
+    background-color: #7D0A0A;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #EAD196;
+    font-weight: bold;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  
+  
+  .goBackButton{
+   
+        padding: 10px 30px;
+        border: none;
+        border-radius: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        color: #7D0A0A;
+        background-color: #F3EDC8;
+        font-weight: bold;
+      
+  } 
+  .signOutButton {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #7D0A0A;
+    background-color: #EAD196;
+    font-weight: bold;
+  }
+  
+  
+  .goBackButton:hover, .signOutButton:hover {
+    opacity: 0.9;
+  }
+  
+  /* Dark Mode */
+  .dark-mode.popup {
+    background-color: #5B0A0A;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .dark-mode .title {
+    color: #D7B66A;
+    font-weight: bold;
+  }
+  .dark-mode .goBackButton{
+   
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #5B0A0A;
+    background-color:#EDD7A3 ;
+    font-weight: bold;
+  
+} 
+.dark-mode .signOutButton {
+padding: 10px 30px;
+border: none;
+border-radius: 20px;
+font-size: 18px;
+cursor: pointer;
+transition: background-color 0.3s;
+background-color: #D7B66A;
+color: #5B0A0A;
+font-weight: bold;
+}
+
+  

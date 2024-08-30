@@ -1,90 +1,76 @@
-/* Gaya umum untuk container */
-.container {
-    max-width: 1280px;
-    margin: 0 auto;
-}
+/* src/pages/Profile.module.css */
 
-/* Gaya untuk mode gelap */
-.dark-mode .avatar {
-    background-color: #3F3C38;
-
-}
-.dark-mode .name {
-    font-size: 24px;
-    color: #BDBDBD;
-    text-align: center;
-    font-weight: bold;
-}
-.dark-mode .attendanceHistory h2 {
-    color: #D7B66A;
-    margin-top: 100px;
-    margin-bottom: 80px;
-    font-weight: bold;
-    font-size: 30px;
-    text-align: left;
-}
-
-.dark-mode .historyItem {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #BDBDBD;
-    font-size: 18px;
-    font-weight: bold;
-    color : #BDBDBD;
-}
-
-
-/* Gaya untuk mode terang */
-.light-mode .avatar {
-    background-color: #F3EDC8;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #fff;
-}
-
-.logo {
-    width: 100px;
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav a {
-    text-decoration: none;
-    color: #7D0A0A;
-    font-weight: bold;
-}
-
-.signOut {
-    color: #7D0A0A;
-    font-weight: bold;
-}
-
-.citButton {
-    background-color: #E5C38C;
-    border: none;
-    border-radius: 50%;
+/* Common styles for both dark and light mode */
+.pencilIcon {
     width: 50px;
-    height: 50px;
-    font-weight: bold;
+    height: auto;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+/* src/pages/Profile.module.css */
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+.modalContent h3 {
+    margin-bottom: 20px;
+}
+
+.modalContent input {
+    margin-bottom: 20px;
+}
+
+.modalContent button {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.main {
-    padding: 50px;
+.dark-mode .modalContent {
+    background-color: #3F3C38;
+    color: #BDBDBD;
 }
 
-.profile {
-    margin-bottom: 40px;
+.dark-mode .modalContent button {
+    background-color: #BDBDBD;
+    color: #3F3C38;
 }
+
+.light-mode .modalContent {
+    background-color: #fff;
+    color: #3F3C38;
+}
+
+.light-mode .modalContent button {
+    background-color: #3F3C38;
+    color: #fff;
+}
+
+/* Other existing styles... */
+
 
 .avatar {
     background-color: #F3EDC8;
@@ -93,6 +79,11 @@
     border-radius: 50%;
     margin: 0 auto 20px;
     margin-top: 50px;
+    position: relative; /* Ensure position absolute of pencil icon works */
+}
+
+.dark-mode .avatar {
+    background-color: #3F3C38;
 }
 
 .name {
@@ -100,6 +91,14 @@
     color: #3F3C38;
     text-align: center;
     font-weight: bold;
+}
+
+.dark-mode .name {
+    color: #BDBDBD;
+}
+
+.light-mode .name {
+    color: #3F3C38;
 }
 
 .attendanceHistory h2 {
@@ -121,3 +120,13 @@
     color: #3F3C38;
 }
 
+.dark-mode .historyItem {
+    color: #BDBDBD;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 20px;
+    }
+}
