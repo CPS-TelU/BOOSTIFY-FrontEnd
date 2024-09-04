@@ -1,20 +1,36 @@
-import React from 'react';
-import FeatureCard from '../components/FeatureCard';
+import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Navbar from '../components/Navbar';
+import HomeNav from '../components/HomeNav';
 import Footer from '../components/footer';
-import { FaSmile, FaShieldAlt, FaChartLine, FaThumbsUp } from 'react-icons/fa';
 import styles from './About.module.css';
+import FeatureCard from '@/components/FeatureCard';
+import { FaSmile, FaShieldAlt, FaChartLine, FaThumbsUp } from 'react-icons/fa';
 import { useTheme } from '../pages/ThemeContext';
 
-const About = () => {
+
+const About: React.FC = () => {
+  const { data: session, status } = useSession(); // Use useSession to check authentication
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { isDarkMode } = useTheme();
+
+  useEffect(() => {
+    // Update isAuthenticated state based on session status
+    if (status === 'authenticated') {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [status]);
+
   return (
     <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : ''}`}>
-      <Navbar />
-
+      {/* Conditionally render HomeNav or Navbar based on isAuthenticated state */}
+      {isAuthenticated ? <HomeNav /> : <Navbar />}
+      
       <main className={styles.main}>
         <section className={`${styles.textCenter} ${isDarkMode ? styles['dark-mode'] : ''}`}>
-          <h2 className="text-3xl font-bold">FEATURES</h2>
+          <h2>FEATURES</h2>
         </section>
 
         {/* First Section: How It Works */}
@@ -89,5 +105,6 @@ const About = () => {
     </div>
   );
 };
+
 
 export default About;

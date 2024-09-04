@@ -4,28 +4,27 @@ import { signOut } from 'next-auth/react';
 import styles from './SignOutPopUp.module.css';
 import { useTheme } from '../../pages/ThemeContext';
 
-
 interface SignOutPopupProps {
-  onClose: () => void;
-  onSignOut: () => void;
+  onClose?: () => void;
+  onSignOut?: () => void;
 }
 
-const SignOutPopup: React.FC<SignOutPopupProps> = ({ onClose, onSignOut }) => {
+const SignOutPopup: React.FC<SignOutPopupProps> = ({ onClose = () => {}, onSignOut = () => {} }) => {
   const router = useRouter();
- const { isDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
 
   const handleGoBack = () => {
-    onClose(); // Close the popup
-    router.push('/HomePage'); // Redirect to the HomePage
+    console.log("Go Back button clicked"); // Tambahkan log untuk memeriksa apakah fungsi dipanggil
+    onClose(); // Menutup pop-up
+    router.push('/HomePage'); // Mengarahkan ke halaman HomePage
   };
-  
 
   const handleSignOut = async () => {
     const authData = localStorage.getItem('authData');
-    
+
     if (authData) {
       const parsedAuthData = JSON.parse(authData);
-      const token = parsedAuthData.token?.token; // Access the token inside the nested structure
+      const token = parsedAuthData.token?.token;
 
       if (token) {
         try {
@@ -35,13 +34,13 @@ const SignOutPopup: React.FC<SignOutPopupProps> = ({ onClose, onSignOut }) => {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({ token }), // Sending the token to the API for invalidation
+            body: JSON.stringify({ token }),
           });
 
           if (response.ok) {
             console.log('Sign-out successful, removing token from localStorage...');
-            localStorage.removeItem('authData'); // Clear the authData from localStorage
-            signOut({callbackUrl: '/'});
+            localStorage.removeItem('authData');
+            signOut({ callbackUrl: '/' });
           } else {
             console.error('Sign-out failed, response status:', response.status);
           }
@@ -54,8 +53,6 @@ const SignOutPopup: React.FC<SignOutPopupProps> = ({ onClose, onSignOut }) => {
     } else {
       console.error('No authData found in localStorage');
     }
-
-    // Additional actions after sign-out, if needed
   };
 
   return (
@@ -63,7 +60,9 @@ const SignOutPopup: React.FC<SignOutPopupProps> = ({ onClose, onSignOut }) => {
       <div className={`${styles.popup} ${isDarkMode ? styles['dark-mode'] : ''}`}>
         <h2 className={styles.title}>Are You Sure?</h2>
         <div className={styles.buttons}>
-          <button onClick={onClose} className={styles.goBackButton}>Go Back</button>
+          <a href="/HomePage">
+          <button onClick={handleGoBack} className={styles.goBackButton}>Go Back</button>
+          </a>
           <button onClick={handleSignOut} className={styles.signOutButton}>Yes</button>
         </div>
       </div>

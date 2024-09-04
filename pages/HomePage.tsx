@@ -29,10 +29,10 @@ const HomePage: React.FC = () => {
       </main>
       <section className={styles.attendanceSection}>
         <h2 className={styles.attendanceTitle}>ATTENDANCE</h2>
-        <a href="/AttendanceCard">
+        <a href="/LiveReport">
           <button className={styles.attendanceButton}>LIVE REPORT</button>
         </a>
-        <a href="/AttendanceRecap">
+        <a href="/Recap">
           <button className={styles.attendanceButton}>RECAP</button>
         </a>
       </section>

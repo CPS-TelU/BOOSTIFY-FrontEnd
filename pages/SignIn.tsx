@@ -4,33 +4,63 @@ import { useTheme } from '../pages/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import { signIn, useSession, getSession } from 'next-auth/react';
+import { DefaultSession } from 'next-auth';
+
+interface CustomUser {
+  id?: number;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  token?: string;
+}
+
+interface CustomSession extends DefaultSession {
+  user: CustomUser;
+}
 
 const SignIn: React.FC = () => {
   const { isDarkMode } = useTheme();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [assistantCode, setAssistantCode] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const { data: session } = useSession() as { data: CustomSession };
 
   // Check authData in localStorage and redirect if already logged in
-  useEffect(() => {
-    const storedAuthData = localStorage.getItem('authData');
-    const authData = storedAuthData ? JSON.parse(storedAuthData) : null;
 
-    if (authData && authData.token) {
-      console.log('Token:', authData.token);
-      console.log('User ID:', authData.payload.id);
-      console.log('User Name:', authData.payload.name);
-      console.log('Assistant Code:', authData.payload.assistant_code);
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-      // Redirect to HomePage if token is valid
-      setTimeout(() => {
-        router.push('/HomePage');
-      }, 1000);
+    const result = await signIn('credentials', {
+      redirect: false,
+      username: assistantCode,
+      password,
+    });
+
+    setLoading(false);
+
+    if (result?.error) {
+      setError('Invalid credentials');
+    } else {
+      // Get the latest session after sign-in
+      const session = await getSession() as CustomSession; // Ensure type casting here
+      if (session?.user?.token) {
+        const userData = {
+          id: session.user.id,
+          name: session.user.name,
+          assistant_code: session.user.email,
+          token: session.user.token,
+        };
+        localStorage.setItem('authData', JSON.stringify(userData));
+      }
+      router.push('/HomePage');
     }
-  }, [router]);
-
+  };
   const handleAssistantCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uppercaseValue = e.target.value.toUpperCase();
     setAssistantCode(uppercaseValue);
@@ -44,68 +74,22 @@ const SignIn: React.FC = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!assistantCode || !password) {
-      setError('Assistant Code and Password are required.');
-      return;
-    }
-
-    try {
-      console.log('Sending request with:', { assistantCode, password });
-      const response = await fetch('https://boostify-back-end.vercel.app/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          assisstant_code: assistantCode,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-      console.log('Received response:', data);
-
-      if (response.ok) {
-        // Format authData sesuai keinginan Anda
-        const authData = {
-          status: true,
-          message: 'success',
-          payload: {
-            id: data.id,
-            name: data.name,
-            assistant_code: data.assisstant_code,
-          },
-          token: data.token,
-        };
-
-        // Menyimpan authData ke local storage
-        localStorage.setItem('authData', JSON.stringify(authData));
-
-        // Redirect ke HomePage setelah login sukses
-        setTimeout(() => {
-          router.push('/HomePage');
-        }, 1000);
-      } else {
-        setError(data.message || 'Login failed');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      setError('An error occurred. Please try again.');
-    }
-  };
+  
 
   return (
     <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <div className={styles.logo}>
         <img src="/logo.png" alt="Boostify Logo" />
-        
+        <img 
+          src={isDarkMode ? "/tagline-dark.png" : "/tagline.png"} 
+          alt="Tagline" 
+          className={styles.tagline} 
+        />
       </div>
+      <div className={styles.logo}></div>
       <div className={`${styles.formContainer}`}>
         <h2 className={styles.title}>Sign In to Your Account</h2>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSignIn}>
           <div className={styles.inputGroup}>
             <label htmlFor="assistantcode" className={styles.label}>Assistant Code</label>
             <input

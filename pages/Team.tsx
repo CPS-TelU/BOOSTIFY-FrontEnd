@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Team.module.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
 import { useTheme } from '../pages/ThemeContext';
+import { useSession } from 'next-auth/react';
+import HomeNav from '../components/HomeNav';
 
-const OurTeam = () => {
+const OurTeam: React.FC = () => {
   const { isDarkMode } = useTheme();
+  const { data: session, status } = useSession(); 
+
+  useEffect(() => {
+    console.log('Session Data:', session);
+    console.log('Session Status:', status);
+  }, [session, status]);
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
-      <Navbar />
+       {status === 'authenticated' ? <HomeNav /> : <Navbar />}
 
       <main className={`${styles.mainContent} ${isDarkMode ? styles['dark-mode'] : ''}`}>
         <h1 className={`${styles.title} ${isDarkMode ? styles['dark-mode'] : ''}`}>RESEARCH DIVISION 22</h1>

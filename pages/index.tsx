@@ -1,15 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
 import styles from './LandingPage.module.css';
 import { useTheme } from '../pages/ThemeContext';
+import HomeNav from '@/components/HomeNav';
 
 const LandingPage: React.FC = () => {
+  const router = useRouter();
+  const { data: session, status } = useSession(); // Get the session data
+  const [isLoading, setIsLoading] = useState(true); // State to handle loading
   const { isDarkMode } = useTheme();
+
+  useEffect(() => {
+    if (status === 'loading') {
+      // Wait for session loading to finish
+      return;
+    }
+
+    if (session) {
+      // Redirect to HomePage if the user is already logged in
+      router.push('/HomePage');
+    } else {
+      // If not logged in, set loading to false
+      setIsLoading(false);
+    }
+  }, [session, status, router]);
+
+  if (isLoading) {
+    // Optionally render a loading spinner or message
+    return <div>Loading...</div>;
+  }
+
   return (
     
     <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
-      <Navbar />
+      {session ? <HomeNav /> : <Navbar />}
       <main className={styles.mainContent} >
         <div className={styles.textSection}>
           <h1 className={styles.title}>Capture Your Smile, Capture Your Presence</h1>

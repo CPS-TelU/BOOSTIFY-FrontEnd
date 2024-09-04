@@ -11,9 +11,9 @@
   }
   
   .logo {
-    width: 600px; /* Atur lebar logo sesuai keinginan */
+    width: 800px; /* Atur lebar logo sesuai keinginan */
     height: auto; /* Agar proporsi logo tetap terjaga */
-    transform: translate(-40%,-20%);
+    transform: translate(-40%,-5%);
   }
   
   
@@ -24,7 +24,7 @@
     margin-bottom: 30px;
     font-family: 'Baloo 2', sans-serif;
     color: #EAD196;
-    transform: translate(0%,600%);
+    transform: translate(0%,700%);
     font-weight: bold;
   }
   
@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    transform: translate(0%,100%);
+    transform: translate(0%,120%);
   }
   
   .inputGroup {
@@ -85,12 +85,15 @@
   max-width: 400px;
   width: 100%;
   text-align: center;
-  margin: -300px auto -800px auto;
-  transform: translate(135%,-60%);
-  height: 900px;
+  margin: -1700px auto -10px auto;
+  transform: translate(135%,10%);
+  height: 1500px;
   
 }
-
+.tagline {
+  width: 80%;
+  transform: translate(32%, -107%);
+}
 
 /* Gaya khusus untuk dark mode */
 .dark-mode .formContainer {
@@ -191,14 +194,17 @@
     .formContainer {
       padding: 20px;
       max-width: 320px;
-      transform: translate(-5%,-120%);
+      transform: translate(-5%,200%);
       height: 320px;
       border-radius: 10px;
     }
     .title {
-      transform: translate(0%, 20%);
+      transform: translate(0%, 30%);
       
       
+    }
+    .form{
+      transform: translate(0%, 100%);
     }
    
     .signInButton {
@@ -212,10 +218,12 @@
      transform: translate(0%, -400%);
     }
     .logo {
-      height: 300px;
-      width: 300px;
+      height: 220px;
+      width: 220px;
     
-      transform: translate(-5%, -210%);
+      transform: translate(-5%, -370%);
     }
-
+    .tagline {
+      display: none;
+    }
   }
