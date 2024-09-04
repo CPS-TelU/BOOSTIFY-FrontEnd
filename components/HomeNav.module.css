@@ -107,6 +107,11 @@
     border-radius: 4px;
     align-items: center;
   }
+  .userName {
+    display: none;
+    font-size: 15px;
+    font-weight: bold;
+  }
 
   .showMenu {
     display: flex;
@@ -142,4 +147,85 @@
 .dark-mode .profileButton {
   background-color: #D7B66A;
   color: #5B0A0A;
+}
+
+.userAvatarButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.userAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EAD196;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #7D0A0A;
+  text-align: center;
+}
+
+.assistantCode {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7D0A0A;
+}
+
+.userName {
+  font-size: 15px;
+  font-weight: bold;
+  color: #7D0A0A;
+}
+
+
+.dark-mode .userName {
+  font-size: 15px;
+  font-weight: bold;
+  color: #D7B66A;
+  /* Tambahkan gaya lain jika diperlukan */
+}
+
+.userAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EAD196;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #7D0A0A;
+  text-align: center;
+  /* Tambahkan gaya lain jika diperlukan */
+}
+
+.avatarImage {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+.dark-mode .userAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #D7B66A;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5B0A0A;
+  text-align: center;
+  /* Tambahkan gaya lain jika diperlukan */
+}
+
+.avatarImage {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }

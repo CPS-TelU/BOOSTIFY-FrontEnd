@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SignIn.module.css';
 import { useTheme } from '../pages/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,11 +13,29 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
+  // Check authData in localStorage and redirect if already logged in
+  useEffect(() => {
+    const storedAuthData = localStorage.getItem('authData');
+    const authData = storedAuthData ? JSON.parse(storedAuthData) : null;
+
+    if (authData && authData.token) {
+      console.log('Token:', authData.token);
+      console.log('User ID:', authData.payload.id);
+      console.log('User Name:', authData.payload.name);
+      console.log('Assistant Code:', authData.payload.assistant_code);
+
+      // Redirect to HomePage if token is valid
+      setTimeout(() => {
+        router.push('/HomePage');
+      }, 1000);
+    }
+  }, [router]);
+
   const handleAssistantCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uppercaseValue = e.target.value.toUpperCase();
     setAssistantCode(uppercaseValue);
   };
-  
+
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -51,10 +69,25 @@ const SignIn: React.FC = () => {
       console.log('Received response:', data);
 
       if (response.ok) {
-        localStorage.setItem('authToken', data.token);
+        // Format authData sesuai keinginan Anda
+        const authData = {
+          status: true,
+          message: 'success',
+          payload: {
+            id: data.id,
+            name: data.name,
+            assistant_code: data.assisstant_code,
+          },
+          token: data.token,
+        };
+
+        // Menyimpan authData ke local storage
+        localStorage.setItem('authData', JSON.stringify(authData));
+
+        // Redirect ke HomePage setelah login sukses
         setTimeout(() => {
           router.push('/HomePage');
-        }, 1000); // Delay 1 second before redirect
+        }, 1000);
       } else {
         setError(data.message || 'Login failed');
       }
@@ -68,6 +101,7 @@ const SignIn: React.FC = () => {
     <div className={`${styles.container} ${isDarkMode ? styles['dark-mode'] : styles['light-mode']}`}>
       <div className={styles.logo}>
         <img src="/logo.png" alt="Boostify Logo" />
+        
       </div>
       <div className={`${styles.formContainer}`}>
         <h2 className={styles.title}>Sign In to Your Account</h2>

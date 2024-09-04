@@ -16,7 +16,9 @@ const LandingPage: React.FC = () => {
           <p className={styles.description}>
             This device is an attendance system based on facial recognition technology that requires users to smile as a sign of presence. With just a smile, your attendance is automatically recorded, enhancing the positive atmosphere in the workplace or school. Additionally, this device aims to boost people's enthusiasm and motivation to start their day with a smile, creating a more positive and productive environment.
           </p>
+          <a href="/SignIn">
           <button className={styles.attendanceButton}>See Your Attendance</button>
+          </a>
         </div>
 
         <div className={styles.imageSection}>

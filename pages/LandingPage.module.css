@@ -76,7 +76,7 @@
 }
 
 .smileImage {
-  height: 288px;
+  height: 200px;
 }
 
 .footer {
@@ -150,8 +150,9 @@
   margin-bottom: 20px;
   font-weight: bold;
   padding-left: 30px;
-  width: 200%;
+  width: 70%;
   height:auto;
+  
 }
 
 /* Gaya untuk deskripsi */

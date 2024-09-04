@@ -10,6 +10,7 @@ const AttendanceRecap = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
 
 
   const { isDarkMode } = useTheme();

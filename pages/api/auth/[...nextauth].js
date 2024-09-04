@@ -85,7 +85,7 @@ export default NextAuth({
     }
   },
   pages: {
-    signIn: '/auth/SignIn',
-    signOut: '/auth/SignOut',
+    signIn: '/SignIn',
+    signOut: '/',
   }
 });
