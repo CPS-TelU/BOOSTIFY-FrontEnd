@@ -1,98 +1,249 @@
-import React from 'react';
-import HomeNav from '../components/HomeNav'; 
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import HomeNav from '../components/HomeNav';
 import Footer from '../components/Footer';
-import styles from './Profile.module.css';
+import { useTheme } from '../styles/ThemeContext';
 
 type AttendanceItem = {
-    date: string;
-    time: string;
+  time: string;
+  rawTime: string;
 };
 
-type ProfileProps = {
-    name: string;
-    attendanceHistory: AttendanceItem[];
+const formatTime = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
 };
 
-const Profile: React.FC<ProfileProps> = ({ name, attendanceHistory }) => {
-    return (
-        <div className={styles.container}>
-            <HomeNav />
-            
-            <main className={styles.main}>
-                <div className={styles.profile}>
-                    <div className={styles.avatar}>
-                        <img src="/user.png" alt="User" className={styles.avatarImage} />
-                    </div>
-                    <h1 className={styles.name}>{name}</h1>
-                </div>
-                <section className={styles.attendanceHistory}>
-                    <h2>Attendance history</h2>
-                    {attendanceHistory.map((item, index) => (
-                        <div key={index} className={styles.historyItem}>
-                            <span>{item.date}</span>
-                            <span>{item.time}</span>
-                        </div>
-                    ))}
-                </section>
-            </main>
+const Profile: React.FC = () => {
+  const [profileData, setProfileData] = useState<{ id: number; name: string; assisstant_code: string; image_url: string } | null>(null);
+  const [attendanceData, setAttendanceData] = useState<AttendanceItem[]>([]);
+  const { isDarkMode } = useTheme();
+  const [profileImage, setProfileImage] = useState<string>('/user.png');
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-            <Footer />
+  const fetchUserData = async () => {
+    const authDataString = localStorage.getItem('authData');
+    if (authDataString) {
+      try {
+        const authData = JSON.parse(authDataString);
+        const token = authData.token.token;
+
+        const response = await fetch('https://boostify-back-end.vercel.app/api/whoami', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setProfileData(data);
+        setProfileImage(data.image_url || '/user.png');
+      } catch (error: any) {
+        console.error('Failed to fetch user data:', error.message);
+      }
+    }
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/heic'];
+      if (!allowedTypes.includes(file.type)) {
+        alert('Only JPG, JPEG, PNG, and HEIC formats are allowed.');
+        return;
+      }
+
+      const authDataString = localStorage.getItem('authData');
+      if (authDataString) {
+        try {
+          const authData = JSON.parse(authDataString);
+          const token = authData.token.token;
+
+          const formData = new FormData();
+          formData.append('image', file); // Match the key expected by multer
+
+          const response = await fetch('https://boostify-back-end.vercel.app/api/uploadImage', {
+            method: 'PATCH',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to upload image: ${response.status} ${errorText}`);
+          }
+
+          const data = await response.json();
+          const updatedImageUrl = data.updatedUser.imageUrl;
+
+          setProfileData((prevState) => {
+            if (!prevState) return null;
+            return {
+              ...prevState,
+              image_url: updatedImageUrl, // Use the updated image URL
+            };
+          });
+          setProfileImage(updatedImageUrl);
+        } catch (error: any) {
+          console.error('Failed to upload image:', error.message);
+        }
+      }
+    }
+  };
+
+  const handleDeleteImage = async () => {
+    const authDataString = localStorage.getItem('authData');
+    if (authDataString) {
+      try {
+        const authData = JSON.parse(authDataString);
+        const token = authData.token.token;
+
+        const response = await fetch('https://boostify-back-end.vercel.app/api/deleteImage', {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to delete image');
+        }
+
+        setProfileImage('/user.png');
+        setProfileData((prevState) => {
+          if (!prevState) return null;
+          return {
+            ...prevState,
+            image_url: '/user.png', // Reset to default image after deletion
+          };
+        });
+        setShowModal(false);
+      } catch (error: any) {
+        console.error('Failed to delete image:', error.message);
+      }
+    }
+  };
+
+  const fetchAttendanceData = async () => {
+    const authDataString = localStorage.getItem('authData');
+    if (authDataString) {
+      try {
+        const authData = JSON.parse(authDataString);
+        const token = authData.token.token;
+  
+        console.log('Fetching attendance data with token:', token); // Debugging line
+  
+        const response = await fetch('https://boostify-back-end.vercel.app/api/personalrec', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          if (response.status === 404) {
+            setAttendanceData([]); // Set to an empty array to display "No attendance history available"
+          } else {
+            const errorText = await response.text();
+            throw new Error(`Network response was not ok: ${response.status} ${errorText}`);
+          }
+        } else {
+          const data = await response.json();
+          console.log('Attendance data received:', data); // Debugging line
+          setAttendanceData(data.attendancesTime || []);
+        }
+      } catch (error: any) {
+        console.error('Failed to fetch attendance data:', error.message);
+      }
+    }
+  };  
+
+  useEffect(() => {
+    fetchUserData();
+    fetchAttendanceData();
+  }, []);
+
+  return (
+    <div className={`max-w-7xl mx-auto ${isDarkMode ? 'bg-[#0D0D0D] text-white' : 'bg-white text-black'}`}>
+      <HomeNav />
+      <main className="px-4 py-10">
+        <div className={`flex flex-col items-center mb-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          <div className="relative flex flex-col items-center">
+            <div className="bg-yellow-100 w-36 h-36 sm:w-48 sm:h-48 rounded-full flex items-center justify-center overflow-hidden mt-8 sm:mt-12">
+              <Image 
+                src={profileImage} 
+                alt="User Avatar" 
+                width={100} 
+                height={100} 
+                className="object-cover w-full h-full" 
+              />
+            </div>
+            <Image 
+              src={isDarkMode ? "/pencil-dark.png" : "/pencil-light.png"} 
+              alt="Edit Profile" 
+              width={40}  // You can adjust this value
+              height={40} // You can adjust this value
+              className="absolute bottom-4 right-0 cursor-pointer sm:w-10 sm:h-10 aspect-square" 
+              onClick={() => setShowModal(true)} 
+            />
+          </div>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-700 my-4 sm:my-5">{profileData?.assisstant_code || 'N/A'}</h2>
+          <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-800">{profileData?.name || 'Loading...'}</h1>
         </div>
-    );
+        <section className="mt-8 sm:mt-12">
+          <h2 className="font-bold text-xl sm:text-2xl mb-6 sm:mb-8">Attendance History</h2>
+          {attendanceData.length > 0 ? (
+            attendanceData.map((item: AttendanceItem, index: number) => (
+              <div key={index} className="flex justify-between py-2 border-b text-base sm:text-lg font-bold">
+                <span className="flex-1">{item.time}</span>
+                <span className="flex-1 text-right">{formatTime(item.rawTime)}</span>
+              </div>
+            ))
+          ) : (
+            <p className="text-base sm:text-lg text-gray-600">No attendance history available</p>
+          )}
+        </section>
+      </main>
+
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-4 sm:p-5 rounded-lg text-center w-56 sm:w-64 relative">
+            <button className="absolute top-2 right-2 text-lg font-bold text-gray-700" onClick={() => setShowModal(false)}>
+              &times;
+            </button>
+            <h3 className="mb-2 text-base sm:text-lg font-bold text-gray-800">Edit Profile Picture</h3>
+            <label className="inline-block py-1 px-2 bg-[#D7B66A] text-[#7D0A0A] rounded cursor-pointer mb-2">
+              <input 
+                type="file" 
+                accept="image/jpeg,image/jpg,image/png,image/heic" 
+                onChange={handleFileChange}
+                className="hidden" 
+              />
+              Choose File
+            </label>
+            <div className="flex justify-between mt-4">
+              <button className="py-1 px-3 bg-[#7D0A0A] text-[#D7B66A] rounded font-bold" onClick={handleDeleteImage}>Delete Image</button>
+              <button className="py-1 px-3 bg-[#D7B66A] text-[#7D0A0A] rounded font-bold" onClick={() => setShowModal(false)}>Upload</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <Footer />
+    </div>
+  );
 };
 
 export default Profile;
-
-export async function getServerSideProps() {
-    try {
-        // Fetch data from the API endpoint
-        const res = await fetch('https://edeb-103-233-100-230.ngrok-free.app/api/profile');
-        if (!res.ok) {
-            throw new Error('Failed to fetch');
-        }
-        const data = await res.json();
-
-        // Extract relevant data from the response
-        const payload = data.payload || {};
-        const name = payload.name || '';
-        const attendancesTime = payload.attendancesTime || [];
-
-        // Map attendancesTime to match AttendanceItem type with formatted date and time
-        const attendanceHistory = attendancesTime.map((item: { rawTime: string }) => {
-            const dateObj = new Date(item.rawTime);
-
-            // Format date to include weekday, day, month, and year
-            const formattedDate = new Intl.DateTimeFormat('en-GB', {
-                weekday: 'long',  // Full name of the day (e.g., Thursday)
-                day: 'numeric',    // Numeric day (e.g., 15)
-                month: 'long',     // Full month name (e.g., August)
-                year: 'numeric'    // Full year (e.g., 2024)
-            }).format(dateObj);
-
-            // Format time as hours and minutes (AM/PM)
-            const formattedTime = new Intl.DateTimeFormat('en-GB', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            }).format(dateObj);
-
-            return { date: formattedDate, time: formattedTime };
-        });
-
-        // Return the fetched data as props
-        return {
-            props: {
-                name,
-                attendanceHistory,
-            },
-        };
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return {
-            props: {
-                name: '',
-                attendanceHistory: [],
-            },
-        };
-    }
-}
