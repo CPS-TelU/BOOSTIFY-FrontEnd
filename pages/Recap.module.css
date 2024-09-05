@@ -234,3 +234,90 @@
     color: #EAD196;
     text-align: center;
 }
+
+@media (max-width: 1000px) {
+    .rank1 {
+        
+        transform: translateX(-50%, -50%);
+    }
+    
+    .rank2 {
+        top: 150px;
+        left: 25%; /* Posisikan lebih ke tengah */
+    }
+    
+    .rank3 {
+        top: 150px;
+        right: 25%; /* Posisikan lebih ke tengah */
+    }
+    
+    .badge {
+        background-color: #EAD196; /* Light color for the badge */
+        width: 150px; /* Size of the badge */
+        height: 150px;
+        border-radius: 50%; /* Circular shape */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 35px; /* Font size for assistant code */
+        font-weight: bold;
+        position: relative;
+        z-index: 5;
+    }
+    
+    .medalIcon {
+        position: absolute;
+        top: -10px; /* Position above the badge */
+        left: calc(-10% - 0px); /* Center horizontally above the badge */
+        width: 80px; /* Size of the medal icon */
+        height: 80px; /* Size of the medal icon */
+        z-index: 10;
+        object-fit: contain;
+    }
+    
+    
+    .points {
+        font-size: 40px; /* Font size for total attendance */
+        font-weight: bold;
+        color: #3F3C38;
+        margin-top: 5px; /* Space above points */
+    }
+}
+
+
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    border-right-color: #ffa50097;
+    position: relative;
+    animation: l24 1s infinite linear;
+  }
+  
+  .loader:before,
+  .loader:after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: inherit;
+    animation: inherit;
+    animation-duration: 2s;
+  }
+  
+  .loader:after {
+    animation-duration: 4s;
+  }
+  
+  @keyframes l24 {
+    100% { transform: rotate(1turn); }
+  }
+  
+  .loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  

@@ -5,7 +5,7 @@ import Footer from '../components/footer';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 interface AttendanceItem {
-  id: number;
+  uuid: number;
   assisstant_code: string;
   name: string;
   time: string;
@@ -94,8 +94,13 @@ const LiveReport: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loaderContainer}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
+  
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -127,7 +132,7 @@ const LiveReport: React.FC = () => {
       </div>
       <div className={styles.attendanceList}>
         {attendanceData.map((item) => (
-          <div key={item.id} className={styles.attendanceItem}>
+          <div key={item.uuid} className={styles.attendanceItem}>
             <div className={styles.attendanceInfo}>
               <div className={styles.attendanceID}>{item.assisstant_code}</div>
               <div className={styles.attendanceName}>{item.name}</div>
